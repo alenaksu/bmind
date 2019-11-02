@@ -1,12 +1,10 @@
 import { Renderer, Scene, Tile } from './services/rendering';
 import { InputHandler } from './services/input';
-import { Point } from './types';
-import { Group } from './services/rendering/Group';
 import { Grid } from './services/game/grid';
 import { compareMatrix, createTileMatrix } from './utils';
 
 const renderer = new Renderer();
-renderer.setSize(540, 960);
+renderer.setSize(1080, 1920);
 // renderer.setSize(canvas.clientWidth, canvas.clientHeight);
 
 const scene = new Scene();
