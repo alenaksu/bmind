@@ -12,7 +12,7 @@ function getRelativeCoords(e: MouseEvent): Point {
 export class InputHandler {
     constructor(public canvas: HTMLCanvasElement, public scene: Scene) {
         canvas.addEventListener('click', this.handleClick);
-        canvas.addEventListener('pointerdown', this.handleClick);
+        // canvas.addEventListener('pointerdown', this.handleClick);
     }
 
     handleClick = (e: MouseEvent) => {

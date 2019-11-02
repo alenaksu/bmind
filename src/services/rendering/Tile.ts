@@ -26,7 +26,7 @@ export class Tile extends Node2D {
         context.fillStyle = Colors[type];
         context.fillRect(x, y, w, h);
 
-        context.shadowColor = 'rgba(0, 0, 0, 1)'; // string
+        context.shadowColor = `${Colors[type]}33`; // string
         //Color of the shadow;  RGB, RGBA, HSL, HEX, and other inputs are valid.
         context.shadowOffsetX = 0; // integer
         //Horizontal distance of the shadow, in relation to the text.
