@@ -21,4 +21,4 @@ parcelRequire=function(e,r,t,n){var i,o="function"==typeof parcelRequire&&parcel
 },{"../rendering/Group":"iT0e","../rendering":"kqf4","../../utils":"LPsV"}],"dgAm":[function(require,module,exports) {
 "use strict";var e=require("./services/rendering"),r=require("./services/input"),i=require("./services/game/grid"),n=require("./utils");const s=new e.Renderer;s.setSize(540,960);const t=new e.Scene;t.background="#FFD38E";const a=new r.InputHandler(s.canvas,t),d=new i.Grid([70,20],80);t.add(d);const c=new i.Grid([150,600],80,3,!0);c.isEnabled=!1,t.add(c),console.log(t.intersectNodes([10,10]));const o=()=>{requestAnimationFrame(o),s.render(t),d.isUpdated&&((0,n.compareMatrix)(c.tileMatrix,d.tileMatrix.slice(1,4).map(e=>e.slice(1,4)))&&alert("you won"),d.isUpdated=!1)};o(),document.body.appendChild(s.canvas);
 },{"./services/rendering":"kqf4","./services/input":"JFh3","./services/game/grid":"ucuE","./utils":"LPsV"}]},{},["dgAm"], null)
-//# sourceMappingURL=/game.7ed56d42.js.map
+//# sourceMappingURL=/bmind/game.7ed56d42.js.map
