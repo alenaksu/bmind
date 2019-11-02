@@ -22,7 +22,24 @@ export class Tile extends Node2D {
 
         const [w, h] = size.map((x: number) => x - this.padding);
 
+        context.save();
         context.fillStyle = Colors[type];
         context.fillRect(x, y, w, h);
+
+        context.shadowColor = 'rgba(0, 0, 0, 1)'; // string
+        //Color of the shadow;  RGB, RGBA, HSL, HEX, and other inputs are valid.
+        context.shadowOffsetX = 0; // integer
+        //Horizontal distance of the shadow, in relation to the text.
+        context.shadowOffsetY = 0; // integer
+        //Vertical distance of the shadow, in relation to the text.
+        context.shadowBlur = 20; // integer
+        context.globalCompositeOperation = 'source-atop';
+
+        context.strokeRect(x, y, w, h);
+        context.strokeRect(x, y, w, h);
+        context.strokeRect(x, y, w, h);
+        context.strokeRect(x, y, w, h);
+        context.strokeRect(x, y, w, h);
+        context.restore();
     }
 }
