@@ -4,7 +4,7 @@ import { Colors } from '../../constants';
 
 export class Tile extends Node2D {
     size: Point = [0, 0];
-    padding: number = 5;
+    padding: number = 10;
     onClick: (point: Point) => void = null;
 
     constructor(public position: Point, size: number, public type: number) {
