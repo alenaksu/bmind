@@ -8,18 +8,17 @@ renderer.setSize(1080, 1920);
 // renderer.setSize(canvas.clientWidth, canvas.clientHeight);
 
 const scene = new Scene();
-scene.background = '#FFD38E';
+scene.background = '#eeeeee';
 
 const inputHandler = new InputHandler(renderer.canvas, scene);
 
-const grid = new Grid([70, 20], 80);
+const grid = new Grid([140, 40], 160);
 scene.add(grid);
 
-const expectGrid = new Grid([150, 600], 80, 3, true);
+const expectGrid = new Grid([300, 1200], 160, 3, true);
 expectGrid.isEnabled = false;
 scene.add(expectGrid);
 
-console.log(scene.intersectNodes([10, 10]));
 
 const loop = () => {
     requestAnimationFrame(loop);
