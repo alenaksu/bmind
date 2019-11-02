@@ -13,8 +13,6 @@ export class Renderer {
     drawBackground(color: string) {
         const { context, canvas } = this;
 
-        context.clearRect(0, 0, canvas.width, canvas.height);
-
         context.fillStyle = color;
         context.fillRect(0, 0, canvas.width, canvas.height);
     }
@@ -30,17 +28,7 @@ export class Renderer {
     }
 
     render(scene: Scene) {
-        const { context, canvas } = this;
-        // const scale = getScale(canvas);
-
-        // context.imageSmoothingEnabled = scale < 1;
-        // context.setTransform(
-        //     scale,
-        //     0,
-        //     0,
-        //     scale,
-        //     0, 0
-        // );
+        this.clear();
 
         if (scene.background) this.drawBackground(scene.background);
 
