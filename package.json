@@ -1,0 +1,22 @@
+{
+    "name": "bmind",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "parcel index.html",
+        "build": "rm -rf docs && parcel build index.html --out-dir docs"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "parcel-bundler": "^1.12.4"
+    },
+    "devDependencies": {
+        "typescript": "^3.6.4"
+    },
+    "browserslist": [
+        "last 1 Chrome versions"
+    ]
+}
