@@ -4,14 +4,15 @@ import { Point } from '../types';
 function getRelativeCoords(e: MouseEvent): Point {
     const target = e.target as HTMLCanvasElement;
     return [
-        (e.clientX - target.offsetLeft),
-        (e.clientY - target.offsetTop)
+        (e.pageX - target.offsetLeft),
+        (e.pageY - target.offsetTop)
     ]
 }
 
 export class InputHandler {
     constructor(public canvas: HTMLCanvasElement, public scene: Scene) {
         canvas.addEventListener('click', this.handleClick);
+        canvas.addEventListener('pointerdown', this.handleClick);
     }
 
     handleClick = (e: MouseEvent) => {
@@ -23,7 +24,7 @@ export class InputHandler {
         const scaleX = width / clientWidth;
         const scaleY = height / clientHeight;
         const point: Point = getRelativeCoords(e);
-        
+
         point[0] *= scaleX;
         point[1] *= scaleY;
 
