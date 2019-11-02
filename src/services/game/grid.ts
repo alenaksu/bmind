@@ -3,20 +3,19 @@ import { Point, TileMatrix } from '../../types';
 import { Tile } from '../rendering';
 import { createTileMatrix } from '../../utils';
 
+function isInside(matrix: TileMatrix, x: number, y: number) {
+    return y >= 0 && y < matrix.length && x >= 0 && x < matrix[y].length;
+}
+
 function isEmptyTile(matrix: TileMatrix, x: number, y: number) {
-    return (
-        y >= 0 &&
-        y < matrix.length &&
-        x >= 0 &&
-        x < matrix[y].length &&
-        matrix[y][x] === -1
-    );
+    return isInside(matrix, x, y) && matrix[y][x] === -1;
 }
 
 export class Grid extends Group {
     tileMatrix: Array<Array<number>>;
     isEnabled: boolean = true;
     isUpdated: boolean = false;
+    tileMap: Map<string, Tile> = new Map();
 
     constructor(
         position: Point,
@@ -46,6 +45,7 @@ export class Grid extends Group {
                 });
 
                 this.add(tile);
+                this.tileMap.set(`${x}-${y}`, tile);
             });
         });
     }
@@ -65,26 +65,42 @@ export class Grid extends Group {
 
         const { tileMatrix, tileSize } = this;
 
-        [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([xDir, yDir]: Point) => {
-            const newX = x + xDir;
-            const newY = y + yDir;
+        const swapTiles = (x: number, y: number, dir: Point) => {
+            const nextX = x + dir[0];
+            const nextY = y + dir[1];
 
-            if (!isEmptyTile(tileMatrix, newX, newY)) return false;
+            if (!isInside(tileMatrix, nextX, nextY)) return false;
 
-            tileMatrix[newY][newX] = type;
-            tileMatrix[y][x] = -1;
+            if (
+                isEmptyTile(tileMatrix, nextX, nextY) ||
+                swapTiles(nextX, nextY, dir)
+            ) {
+                const type = tileMatrix[y][x];
+                const tileKey = `${x}-${y}`;
+                const tile = this.tileMap.get(tileKey);
 
-            tile.position = [tileSize * newX, tileSize * newY];
-            tile.onClick = this.handleClick.bind(this, {
-                type,
-                tile,
-                x: newX,
-                y: newY,
-            });
+                this.tileMap.delete(tileKey)
+                this.tileMap.set(`${nextX}-${nextY}`, tile);
 
-            return true;
-        });
+                tileMatrix[nextY][nextX] = type;
+                tileMatrix[y][x] = -1;
 
-        this.isUpdated = true;
+                tile.position = [tileSize * nextX, tileSize * nextY];
+                tile.onClick = this.handleClick.bind(this, {
+                    type,
+                    tile,
+                    x: nextX,
+                    y: nextY,
+                });
+
+                return true;
+            }
+        };
+
+        const result = [[1, 0], [-1, 0], [0, 1], [0, -1]].some((dir: Point) =>
+            swapTiles(x, y, dir)
+        );
+
+        this.isUpdated = result;
     }
 }
