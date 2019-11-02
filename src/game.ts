@@ -33,6 +33,7 @@ const loop = () => {
             )
         ) {
             alert('you won');
+            location.reload();
         }
         grid.isUpdated = false;
     }
